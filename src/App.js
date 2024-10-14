@@ -1,25 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import "./App.css";
+import { useState } from "react";
+
+function InputField({addItem}) {
+  let [todoInput, setTodoInput] = useState("");
+  let handleButtonClicked = () => {
+    addItem(todoInput);
+    setTodoInput("");
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input
+        value={todoInput}
+        onChange={(e) => setTodoInput(e.target.value)}
+        type="text"
+        placeholder="add a new todo"
+      />
+      <button onClick={handleButtonClicked}>add</button>
     </div>
   );
 }
 
+function SearchBar() {
+  return (
+    <div>
+      <input type="text" placeholder="search"></input>
+      <button> search</button>
+    </div>
+  );
+}
+
+function ListItem({ title, onDelete }) {
+  return (
+    <div>
+      <p>{title}</p>
+    </div>
+  );
+}
+
+function App() {
+  let [todoList, setTodoList] = useState([]);
+  let addItem = (newTodo) => {
+    setTodoList([...todoList, newTodo])
+  };
+  return (
+    <div className="App">
+      <h1>Todo List</h1>
+      {/* {SearchBar()} */}
+      <SearchBar />
+     
+      <InputField addItem={addItem}/>
+      {todoList.map((todo, index) => {
+        return (   <div key={index} >
+          <ListItem title = {todo} />
+          </div>
+          )
+      })}
+    </div>
+  );
+}
 export default App;
