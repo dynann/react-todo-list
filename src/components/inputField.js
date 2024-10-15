@@ -7,15 +7,18 @@ function InputField({addItem}) {
       setTodoInput("");
     };
     return (
-      <div>
-        <input
+      <form class="add text-center my-4">
+        <label class="text-alight">Add Todo</label>
+        <input class="form-control m-auto"
           value={todoInput}
           onChange={(e) => setTodoInput(e.target.value)}
           type="text"
           placeholder="add a new todo"
         />
-        <button onClick={handleButtonClicked}>add</button>
+        <div class="text-center">
+        <button onClick={handleButtonClicked} class="btn btn-light">add</button>
       </div>
+      </form>
     );
   }
 
